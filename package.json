@@ -1,0 +1,15 @@
+{
+  "name": "chapter-2",
+  "version": "1.0.0",
+  "description": "chapter 2",
+  "main": "banking_system.js",
+  "type": "module",
+  "scripts": {
+    "start": "node banking_system.js"
+  },
+  "keywords": [
+    "chapter2"
+  ],
+  "author": "bima",
+  "license": "ISC"
+}

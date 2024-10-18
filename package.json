@@ -2,14 +2,24 @@
   "name": "chapter-2",
   "version": "1.0.0",
   "description": "chapter 2",
-  "main": "banking_system.js",
+  "main": "./src/app.js",
   "type": "module",
   "scripts": {
-    "start": "node banking_system.js"
+    "start": "node ./src/app.js",
+    "dev": "nodemon ./src/app.js"
   },
   "keywords": [
     "chapter2"
   ],
   "author": "bima",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "prisma": "^5.21.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.21.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "morgan": "^1.10.0"
+  }
 }

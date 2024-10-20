@@ -1,11 +1,19 @@
 import { Router } from 'express'
 
+import {
+    createValidation
+} from '../validations/user.validation.js'
+
 import { 
-    get
+    getAll,
+    getOne,
+    create
 } from '../controllers/user.controller.js'
 
 const userRoutes = Router()
 
-userRoutes.get('/', get)
+userRoutes.get('/', getAll)
+userRoutes.get('/:id', getOne)
+userRoutes.post('/', createValidation, create)
 
 export { userRoutes }

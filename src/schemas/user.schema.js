@@ -1,18 +1,22 @@
-import Joi from "joi"
+import Joi from "joi";
 
-const userSchema = Joi.object({
-    name: Joi.string().required().max(255),
-    email: Joi.string().required().max(255),
-    password: Joi.string().required().max(255)
-})
+export default new class UserSchema {
+  constructor() {
+    this.userSchema = Joi.object({
+      name: Joi.string().required().max(255),
+      email: Joi.string().required().max(255),
+      password: Joi.string().required().max(255),
+      identityType: Joi.string().required().max(255),
+      identityNumber: Joi.string().required().max(255),
+      address: Joi.string().required().max(255)
+    })
+  }
 
-export const createUserSchema = userSchema
+  createUser() {
+    return this.userSchema
+  }
 
-export const loginUserValidation = userSchema.extract('email', 'password')
-
-export const getUserValidation = Joi.string().required().max(100)
-
-export const updateUserValidation = Joi.object({
-    name: Joi.string().max(100).optional(),
-    password: Joi.string().max(100).optional()
-})
+  loginUser() {
+    return this.userSchema.extract('email', 'password')
+  }
+}

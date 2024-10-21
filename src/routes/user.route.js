@@ -1,19 +1,22 @@
 import { Router } from 'express'
+import userController from '../controllers/user.controller.js'
+import userValidation from '../validations/user.validation.js'
 
-import {
-    createValidation
-} from '../validations/user.validation.js'
+export default new class UserRoutes {
+    constructor() {
+        this.router = Router()
+        this.userController = userController
+        this.userValidation = userValidation
+        this.initializeRoutes()
+    }
 
-import { 
-    getAll,
-    getOne,
-    create
-} from '../controllers/user.controller.js'
+    initializeRoutes() {
+        this.router.get('/', this.userController.getUsers)
+        this.router.get('/:id', this.userController.getUserById)
+        this.router.post('/', this.userValidation.createUser, this.userController.createUser)
+    }
 
-const userRoutes = Router()
-
-userRoutes.get('/', getAll)
-userRoutes.get('/:id', getOne)
-userRoutes.post('/', createValidation, create)
-
-export { userRoutes }
+    getRouter() {
+        return this.router;
+    }
+}

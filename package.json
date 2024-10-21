@@ -1,7 +1,7 @@
 {
-  "name": "chapter-2",
+  "name": "basic_banking",
   "version": "1.0.0",
-  "description": "chapter 2",
+  "description": "api",
   "main": "./src/app.js",
   "type": "module",
   "scripts": {
@@ -9,7 +9,7 @@
     "dev": "nodemon ./src/app.js"
   },
   "keywords": [
-    "chapter2"
+    "bank"
   ],
   "author": "bima",
   "license": "ISC",

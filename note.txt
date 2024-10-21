@@ -1,3 +1,0 @@
-Note Challenge 3
-- Harap lakukan ./db/migrations terlebih dahulu, blok semua sql lalu jalankan karena kode sql bagian bawah juga berpengaruh
-- ./db/queries tidak dipastikan semua berjalan karena hanya menuliskan fitur yang penting

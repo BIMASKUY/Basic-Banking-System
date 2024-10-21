@@ -1,63 +1,58 @@
 import { ResponseError } from '../error/response.error.js';
 import { hash } from 'bcrypt';
-import { formatUser, formatUsers, formatWithProfileUser } from '../utils/user.util.js';
+import { formatUser, formatUsers } from '../utils/user.util.js';
+import userService from '../services/user.service.js'
 
-import { 
-    getUsers,
-    getUserByEmail,
-    createUser,
-    getUserWithProfileById
-} from '../services/user.service.js'
-
-export const getAll = async (req, res, next) => {
-  try {
-    const users = await getUsers();
-    const formattedUsers = formatUsers(users)
-
-    res.status(200).json({
-      success: true,
-      message: 'Berhasil mendapatkan users',
-      data: formattedUsers
-    });
-  } catch (e) {
-    next(e)
+export default new class UserController {
+  constructor() {
+    this.userService = userService
   }
-}
 
-export const getOne = async (req, res, next) => {
-  try {
-    const userId = parseInt(req.params.id);
-    const user = await getUserWithProfileById(userId);
-    if (!user) throw new ResponseError(404, 'User tidak ditemukan');
-    console.log(user)
-
-    const formattedUser = formatWithProfileUser(user)
-
-    res.status(200).json({
-      success: true,
-      message: 'Berhasil mendapatkan user',
-      data: formattedUser
-    });
-  } catch (e) {
-    next(e)
+  getUsers = async (req, res, next) => {
+    try {
+      const users = await this.userService.getUsers()
+      const formattedUsers = formatUsers(users)
+      res.status(200).json({
+        success: true,
+        message: 'Berhasil mendapatkan semua pengguna',
+        data: formattedUsers,
+      })
+    } catch (e) {
+      next(e)
+    }
   }
-}
 
-export const create = async (req, res, next) => {
-  try {
-    const findUser = await getUserByEmail(req.body.email)
-    if (findUser) throw new ResponseError(400, 'Email sudah digunakan')
-    
-    req.body.password = await hash(req.body.password, 10)
-    const user = await createUser(req.body)
-    const formattedUser = formatWithProfileUser(user)
+  getUserById = async (req, res, next) => {
+    try {
+      const userId = parseInt(req.params.id)
+      const user = await this.userService.getUserById(userId)
+      const formattedUser = formatUser(user)
+      if (!user) throw new ResponseError(404, 'Pengguna tidak ditemukan')
+      res.status(200).json({
+        success: true,
+        message: 'Berhasil mendapatkan pengguna',
+        data: formattedUser,
+      })
+    } catch (e) {
+      next(e)
+    }
+  }
 
-    res.status(201).json({
-      success: true,
-      message: 'Berhasil membuat user',
-      data: formattedUser
-    })
-  } catch (e) {
-    next(e)
+  createUser = async (req, res, next) => {
+    try {
+      const findUser = await this.userService.getUserByEmail(req.body.email)
+      if (findUser) throw new ResponseError(400, 'Email sudah digunakan')
+
+      req.body.password = await hash(req.body.password, 10)
+      const user = await this.userService.createUser(req.body)
+      const formattedUser = formatUser(user)
+      res.status(201).json({
+        success: true,
+        message: 'Berhasil membuat pengguna',
+        data: formattedUser,
+      })
+    } catch (e) {
+      next(e)
+    }
   }
 }

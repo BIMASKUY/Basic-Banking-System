@@ -36,22 +36,22 @@ model Profile {
 }
 
 model BankAccount {
-  id                    Int     @id               @default(autoincrement())
-  userId                Int     @map("user_id")
-  bankName              String  @db.VarChar(255)  @map("bank_name")
-  bankAccountNumber     String  @db.VarChar(255)  @map("bank_account_number")
+  id                    Int             @id               @default(autoincrement())
+  userId                Int             @map("user_id")
+  bankName              String          @db.VarChar(255)  @map("bank_name")
+  bankAccountNumber     String          @db.VarChar(255)  @map("bank_account_number")
   balance               Int
-  user                  User    @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  debitTransaction Transaction[]   @relation("sourceAccount")
-  creditTransaction Transaction[]  @relation("destinationAccount")
+  user                  User            @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  debitTransaction      Transaction[]   @relation("sourceAccount")
+  creditTransaction     Transaction[]   @relation("destinationAccount")
 
   @@map("bank_accounts")
 }
 
 model Transaction {
-  id                      Int   @default(autoincrement())       @id
-  sourceAccountId         Int   @map("source_account_id")
-  destinationAccountId    Int   @map("destination_account_id")
+  id                      Int         @default(autoincrement())       @id
+  sourceAccountId         Int         @map("source_account_id")
+  destinationAccountId    Int         @map("destination_account_id")
   amount                  Int
   sourceAccount           BankAccount @relation("sourceAccount", fields: [sourceAccountId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   destinationAccount      BankAccount @relation("destinationAccount", fields: [destinationAccountId], references: [id], onUpdate: Cascade, onDelete: Cascade)

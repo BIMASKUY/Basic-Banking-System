@@ -6,6 +6,7 @@ import userService from '../services/user.service.js'
 export default new class AccountController {
   constructor() {
     this.accountService = accountService
+	this.userService = userService
   }
 
   getAccounts = async (req, res, next) => {
@@ -24,7 +25,7 @@ export default new class AccountController {
 
   createAccount = async (req, res, next) => {
     try {
-			const user = await userService.getUserById(req.body.userId)
+			const user = await this.userService.getUserById(req.body.userId)
 			if (!user) throw new ResponseError(404, 'Pengguna tidak ditemukan')
 
       const account = await this.accountService.createAccount(req.body)

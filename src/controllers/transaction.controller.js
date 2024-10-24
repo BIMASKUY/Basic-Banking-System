@@ -6,6 +6,7 @@ import accountService from '../services/account.service.js'
 export default new class TransactionController {
   constructor() {
     this.transactionService = transactionService
+    this.accountService = accountService
   }
 
   getTransactions = async (req, res, next) => {
@@ -24,11 +25,11 @@ export default new class TransactionController {
 
   createTransaction = async (req, res, next) => {
     try {
-      const sourceAccount = await accountService.getAccountById(req.body.sourceAccountId)
+      const sourceAccount = await this.accountService.getAccountById(req.body.sourceAccountId)
 			if (!sourceAccount) throw new ResponseError(404, 'Akun sumber tidak ditemukan')
 			if (sourceAccount.balance < req.body.amount) throw new ResponseError(400, 'Saldo tidak cukup')
 			
-			const destinationAccount = await accountService.getAccountById(req.body.destinationAccountId)
+			const destinationAccount = await this.accountService.getAccountById(req.body.destinationAccountId)
 			if (!destinationAccount) throw new ResponseError(404, 'Akun tujuan tidak ditemukan')
 
       const transaction = await this.transactionService.createTransaction(req.body)

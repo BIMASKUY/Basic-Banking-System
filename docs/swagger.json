@@ -1,0 +1,1229 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Basic Banking System API",
+    "description": "Banking System API dari Binar Academy",
+    "contact": {
+      "email": "bimarizqyramadhan@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "Repository Github",
+    "url": "https://github.com/BIMASKUY/Basic-Banking-System"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "user",
+      "description": "CRUD mengenai pengguna"
+    },
+    {
+      "name": "account",
+      "description": "CRUD mengenai akun bank"
+    },
+    {
+      "name": "transaction",
+      "description": "CRUD mengenai transaksi"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Membuat pengguna",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "example": {
+                "name": "mughie",
+                "email": "mughie@gmail.com",
+                "password": "mughie123",
+                "identityType": "KTP",
+                "identityNumber": "3201010101010001",
+                "address": "Jl. Merdeka No. 123, Jakarta, Indonesia"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Berhasil membuat pengguna",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Berhasil membuat pengguna"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string",
+                          "example": "mughie@gmail.com"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "mughie"
+                        },
+                        "profile": {
+                          "type": "object",
+                          "properties": {
+                            "identityType": {
+                              "type": "string",
+                              "example": "KTP"
+                            },
+                            "identityNumber": {
+                              "type": "string",
+                              "example": "3201010101010001"
+                            },
+                            "address": {
+                              "type": "string",
+                              "example": "Jl. Merdeka No. 123, Jakarta, Indonesia"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error karena duplikasi email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Email sudah digunakan"
+                    },
+                    "data": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Mendapatkan semua pengguna",
+        "responses": {
+          "200": {
+            "description": "Berhasil mendapatkan semua pengguna",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Berhasil mendapatkan semua pengguna"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "email": {
+                            "type": "string",
+                            "example": "mughie@gmail.com"
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "mughie"
+                          },
+                          "profile": {
+                            "type": "object",
+                            "properties": {
+                              "identityType": {
+                                "type": "string",
+                                "example": "KTP"
+                              },
+                              "identityNumber": {
+                                "type": "string",
+                                "example": "3201010101010001"
+                              },
+                              "address": {
+                                "type": "string",
+                                "example": "Jl. Merdeka No. 123, Jakarta, Indonesia"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Mendapatkan pengguna berdasarkan ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID user yang ingin didapatkan",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil mendapatkan pengguna",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Berhasil mendapatkan pengguna"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string",
+                          "example": "bima@gmail.com"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "bima"
+                        },
+                        "profile": {
+                          "type": "object",
+                          "properties": {
+                            "identityType": {
+                              "type": "string",
+                              "example": "KTP"
+                            },
+                            "identityNumber": {
+                              "type": "string",
+                              "example": "2234019283013412"
+                            },
+                            "address": {
+                              "type": "string",
+                              "example": "Jl. Anggrek Bandung, Indonesia"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Tidak ada pengguna dengan id tersebut",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Pengguna tidak ditemukan"
+                    },
+                    "data": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts": {
+      "post": {
+        "tags": [
+          "account"
+        ],
+        "summary": "Membuat akun bank",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Account"
+              },
+              "example": {
+                "bankName": "BRI",
+                "bankAccountNumber": "12345678"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Berhasil membuat akun bank",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Berhasil membuat akun"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "bankName": {
+                          "type": "string",
+                          "example": "BRI"
+                        },
+                        "bankAccountNumber": {
+                          "type": "string",
+                          "example": "12345678"
+                        },
+                        "balance": {
+                          "type": "integer",
+                          "example": 0
+                        },
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "example": "mughie"
+                            },
+                            "email": {
+                              "type": "string",
+                              "example": "mughie@gmail.com"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Id pengguna tidak ditemukan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Pengguna tidak ditemukan"
+                    },
+                    "data": {
+                      "type": "object",
+                      "additionalProperties": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "account"
+        ],
+        "summary": "Mendapatkan semua akun bank",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil mendapatkan semua akun bank",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Berhasil mendapatkan semua akun"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "bankName": {
+                            "type": "string",
+                            "example": "BRI"
+                          },
+                          "bankAccountNumber": {
+                            "type": "string",
+                            "example": "12345678"
+                          },
+                          "balance": {
+                            "type": "integer",
+                            "example": 0
+                          },
+                          "user": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string",
+                                "example": "mughie"
+                              },
+                              "email": {
+                                "type": "string",
+                                "example": "mughie@gmail.com"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/{id}": {
+      "get": {
+        "tags": [
+          "account"
+        ],
+        "summary": "Mendapatkan akun bank berdasarkan id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id akun bank yang ingin didapatkan",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil mendapatkan akun bank",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Berhasil mendapatkan akun"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "bankName": {
+                          "type": "string",
+                          "example": "BRI"
+                        },
+                        "bankAccountNumber": {
+                          "type": "string",
+                          "example": "12345678"
+                        },
+                        "balance": {
+                          "type": "integer",
+                          "example": 0
+                        },
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "example": "mughie"
+                            },
+                            "email": {
+                              "type": "string",
+                              "example": "mughie@gmail.com"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Id akun bank tidak ditemukan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Akun tidak ditemukan"
+                    },
+                    "data": {
+                      "type": "object",
+                      "additionalProperties": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/{id}/deposit": {
+      "post": {
+        "tags": [
+          "account"
+        ],
+        "summary": "Setoran ke rekening akun bank",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id akun bank yang ingin didapatkan",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "amount"
+                ],
+                "properties": {
+                  "amount": {
+                    "type": "integer",
+                    "example": 50000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Berhasil setoran ke akun bank",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Berhasil melakukan setoran"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "bankName": {
+                          "type": "string",
+                          "example": "BRI"
+                        },
+                        "bankAccountNumber": {
+                          "type": "string",
+                          "example": "12345678"
+                        },
+                        "balance": {
+                          "type": "integer",
+                          "example": 50000
+                        },
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "example": "mughie"
+                            },
+                            "email": {
+                              "type": "string",
+                              "example": "mughie@gmail.com"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal karena dibawah minimum nominal transaksi",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "\"amount\" must be greater than or equal to 10000"
+                    },
+                    "data": {
+                      "type": "object",
+                      "additionalProperties": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/{id}/withdraw": {
+      "post": {
+        "tags": [
+          "account"
+        ],
+        "summary": "Penarikan dari akun bank",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "amount"
+                ],
+                "properties": {
+                  "amount": {
+                    "type": "integer",
+                    "example": 10000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Berhasil melakukan penarikan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Berhasil melakukan penarikan saldo"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "bankName": {
+                          "type": "string",
+                          "example": "BRI"
+                        },
+                        "bankAccountNumber": {
+                          "type": "string",
+                          "example": "12345678"
+                        },
+                        "balance": {
+                          "type": "integer",
+                          "example": 40000
+                        },
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "example": "mughie"
+                            },
+                            "email": {
+                              "type": "string",
+                              "example": "mughie@gmail.com"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal karena melakukan penarikan diatas saldo yang dimiliki",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Saldo tidak cukup"
+                    },
+                    "data": {
+                      "type": "object",
+                      "additionalProperties": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transactions": {
+      "post": {
+        "tags": [
+          "transaction"
+        ],
+        "summary": "Membuat transaksi bank",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Transaction"
+              },
+              "example": {
+                "sourceAccountId": 4,
+                "destinationAccountId": 5,
+                "amount": 10000
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Berhasil melakukan transaksi",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Berhasil membuat transaksi"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "sourceAccount": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "example": "mughie"
+                            },
+                            "email": {
+                              "type": "string",
+                              "example": "mughie@gmail.com"
+                            },
+                            "bankName": {
+                              "type": "string",
+                              "example": "BRI"
+                            },
+                            "bankAccountNumber": {
+                              "type": "string",
+                              "example": 12345678
+                            },
+                            "balance": {
+                              "type": "integer",
+                              "example": 40000
+                            }
+                          }
+                        },
+                        "destinationAccount": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "example": "bima"
+                            },
+                            "email": {
+                              "type": "string",
+                              "example": "bima@gmail.com"
+                            },
+                            "bankName": {
+                              "type": "string",
+                              "example": "BCA"
+                            },
+                            "bankAccountNumber": {
+                              "type": "string",
+                              "example": 87654321
+                            },
+                            "balance": {
+                              "type": "integer",
+                              "example": 0
+                            }
+                          }
+                        },
+                        "amount": {
+                          "type": "integer",
+                          "example": 10000
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Gagal transaksi karena id destinationAccount tidak ditemukan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Akun sumber tidak ditemukan"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "transaction"
+        ],
+        "summary": "Mendapatkan semua transaksi",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil mendapatkan semua transaksi",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Berhasil mendapatkan semua transaksi"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "sourceAccount": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string",
+                                "example": "mughie"
+                              },
+                              "email": {
+                                "type": "string",
+                                "example": "mughie@gmail.com"
+                              },
+                              "bankName": {
+                                "type": "string",
+                                "example": "BRI"
+                              },
+                              "bankAccountNumber": {
+                                "type": "string",
+                                "example": 12345678
+                              },
+                              "balance": {
+                                "type": "integer",
+                                "example": 30000
+                              }
+                            }
+                          },
+                          "destinationAccount": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string",
+                                "example": "bima"
+                              },
+                              "email": {
+                                "type": "string",
+                                "example": "bima@gmail.com"
+                              },
+                              "bankName": {
+                                "type": "string",
+                                "example": "BCA"
+                              },
+                              "bankAccountNumber": {
+                                "type": "string",
+                                "example": 87654321
+                              },
+                              "balance": {
+                                "type": "integer",
+                                "example": 10000
+                              }
+                            }
+                          },
+                          "amount": {
+                            "type": "integer",
+                            "example": 10000
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transactions/{id}": {
+      "get": {
+        "tags": [
+          "transaction"
+        ],
+        "summary": "Mendapatkan transaksi berdasarkan id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil mendapatkan id transaksi",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Berhasil mendapatkan transaksi"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "sourceAccount": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "example": "mughie"
+                            },
+                            "email": {
+                              "type": "string",
+                              "example": "mughie@gmail.com"
+                            },
+                            "bankName": {
+                              "type": "string",
+                              "example": "BRI"
+                            },
+                            "bankAccountNumber": {
+                              "type": "string",
+                              "example": 12345678
+                            },
+                            "balance": {
+                              "type": "integer",
+                              "example": 30000
+                            }
+                          }
+                        },
+                        "destinationAccount": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "example": "bima"
+                            },
+                            "email": {
+                              "type": "string",
+                              "example": "bima@gmail.com"
+                            },
+                            "bankName": {
+                              "type": "string",
+                              "example": "BCA"
+                            },
+                            "bankAccountNumber": {
+                              "type": "string",
+                              "example": 87654321
+                            },
+                            "balance": {
+                              "type": "integer",
+                              "example": 10000
+                            }
+                          }
+                        },
+                        "amount": {
+                          "type": "integer",
+                          "example": 10000
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Id transaksi tidak ditemukan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Transaksi tidak ditemukan"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string"
+          },
+          "identityType": {
+            "type": "string"
+          },
+          "identityNumber": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "password",
+          "identityType",
+          "identityNumber",
+          "address"
+        ]
+      },
+      "Account": {
+        "type": "object",
+        "properties": {
+          "bankName": {
+            "type": "string"
+          },
+          "bankAccountNumber": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "bankName",
+          "bankAccountNumber"
+        ]
+      },
+      "Transaction": {
+        "type": "object",
+        "required": [
+          "sourceAccountId",
+          "destinationAccountId",
+          "amount"
+        ],
+        "properties": {
+          "sourceAccountId": {
+            "type": "integer"
+          },
+          "destinationAccountId": {
+            "type": "integer"
+          },
+          "amount": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

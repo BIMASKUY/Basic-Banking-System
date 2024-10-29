@@ -14,4 +14,13 @@ export default new class UserValidation {
             next(error)
         }
     }
+
+    loginUser = (req, res, next) => {
+        try {
+            req.body = validate(this.userSchema.loginUser(), req.body)
+            next()
+        } catch (error) {
+            next(error)
+        }
+    }
 }

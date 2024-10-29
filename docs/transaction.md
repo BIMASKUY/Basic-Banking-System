@@ -4,6 +4,9 @@
 
 Endpoint : POST /api/v1/transactions
 
+Headers :
+- Authorization : token
+
 Request Body : 
 
 ```json
@@ -53,6 +56,9 @@ Response Body Error :
 
 Endpoint : GET /api/v1/transactions
 
+Headers :
+- Authorization : token
+
 Response Body Success : 
 
 ```json
@@ -84,6 +90,9 @@ Response Body Success :
 ## Get Transaction API
 
 Endpoint : GET /api/v1/transactions/:id
+
+Headers :
+- Authorization : token
 
 Response Body Success : 
 

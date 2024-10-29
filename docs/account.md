@@ -4,13 +4,15 @@
 
 Endpoint : POST /api/v1/accounts
 
+Headers :
+- Authorization : token
+
 Request Body : 
 
 ```json
 {
     "bankName": "BRI",
-    "bankAccountNumber": "12345678",
-    "userId": 9
+    "bankAccountNumber": "12345678"
 }
 ```
 
@@ -23,11 +25,7 @@ Reponse Body Success :
     "data": {
         "bankName": "BRI",
         "bankAccountNumber": "12345678",
-        "balance": 0,
-        "user": {
-            "name": "mughie",
-            "email": "mughie@gmail.com"
-        }
+        "balance": 0
     }
 }
 ```
@@ -45,6 +43,9 @@ Response Body Error :
 
 Endpoint : GET /api/v1/accounts
 
+Headers :
+- Authorization : token
+
 Response Body Success : 
 
 ```json
@@ -55,20 +56,7 @@ Response Body Success :
         {
             "bankName": "BRI",
             "bankAccountNumber": "12345678",
-            "balance": 0,
-            "user": {
-                "name": "mughie",
-                "email": "mughie@gmail.com"
-            }
-        },
-        {
-            "bankName": "BCA",
-            "bankAccountNumber": "87654321",
-            "balance": 0,
-            "user": {
-                "name": "bima",
-                "email": "bima@gmail.com"
-            }
+            "balance": 30000
         }
     ]
 }
@@ -77,6 +65,9 @@ Response Body Success :
 ## Get Account API
 
 Endpoint : GET /api/v1/accounts/:id
+
+Headers :
+- Authorization : token
 
 Response Body Success : 
 
@@ -87,11 +78,7 @@ Response Body Success :
     "data": {
         "bankName": "BRI",
         "bankAccountNumber": "12345678",
-        "balance": 0,
-        "user": {
-            "name": "mughie",
-            "email": "mughie@gmail.com"
-        }
+        "balance": 0
     }
 }
 ```
@@ -110,6 +97,9 @@ Response Body Error :
 
 Endpoint : POST /api/v1/accounts/:id/deposit
 
+Headers :
+- Authorization : token
+
 Request Body : 
 
 ```json
@@ -127,11 +117,7 @@ Response Body Success :
     "data": {
         "bankName": "BRI",
         "bankAccountNumber": "12345678",
-        "balance": 50000,
-        "user": {
-            "name": "mughie",
-            "email": "mughie@gmail.com"
-        }
+        "balance": 50000
     }
 }
 ```
@@ -150,6 +136,9 @@ Response Body Error :
 
 Endpoint : POST /api/v1/accounts/:id/withdraw
 
+Headers :
+- Authorization : token
+
 Request Body : 
 
 ```json
@@ -167,11 +156,7 @@ Response Body Success :
     "data": {
         "bankName": "BRI",
         "bankAccountNumber": "12345678",
-        "balance": 40000,
-        "user": {
-            "name": "mughie",
-            "email": "mughie@gmail.com"
-        }
+        "balance": 40000
     }
 }
 ```

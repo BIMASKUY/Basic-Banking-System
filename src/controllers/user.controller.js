@@ -26,8 +26,9 @@ export default new class UserController {
     try {
       const userId = parseInt(req.params.id)
       const user = await this.userService.getUserById(userId)
-      const formattedUser = formatUser(user)
       if (!user) throw new ResponseError(404, 'Pengguna tidak ditemukan')
+        
+      const formattedUser = formatUser(user)
       res.status(200).json({
         success: true,
         message: 'Berhasil mendapatkan pengguna',

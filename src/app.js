@@ -1,20 +1,18 @@
 import dotenv from 'dotenv'
 import express from 'express'
-import userRoutes from './routes/user.route.js'
-import accountRoutes from './routes/account.route.js'
-import transactionRoutes from './routes/transaction.route.js'
 import morgan from 'morgan'
 import { errorMiddleware } from './middleware/error.middleware.js'
+import appRoutes from './routes/index.js'
+import swaggerUi from 'swagger-ui-express'
+import swaggerDocument from '../docs/swagger.json' assert { type: 'json' }
 
 dotenv.config()
 const app = express()
 const port = process.env.PORT
 app.use(express.json())
-
 app.use(morgan('dev'))
-app.use('/api/v1/users', userRoutes.getRouter())
-app.use('/api/v1/accounts', accountRoutes.getRouter())
-app.use('/api/v1/transactions', transactionRoutes.getRouter())
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+app.use('/api/v1', appRoutes.getRouter())
 app.use(errorMiddleware)
 
 app.listen(port, () => {

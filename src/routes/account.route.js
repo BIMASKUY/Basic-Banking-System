@@ -19,6 +19,6 @@ export default new class AccountRoutes {
     }
 
     getRouter() {
-        return this.router;
+        return this.router
     }
 }

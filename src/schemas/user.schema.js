@@ -17,6 +17,9 @@ export default new class UserSchema {
   }
 
   loginUser() {
-    return this.userSchema.extract('email', 'password')
+    return Joi.object({
+      email: this.userSchema.extract('email'),
+      password: this.userSchema.extract('password')
+    })
   }
 }

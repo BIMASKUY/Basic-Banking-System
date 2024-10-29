@@ -2,8 +2,22 @@ import { prismaClient } from "../db/prisma.js"
 import accountService from "./account.service.js"
 
 export default new class TransactionService {
-  async getTransactions() {
+  async getTransactions(userId) {
 	  return prismaClient.transaction.findMany({
+			where: {
+				OR: [
+					{
+						sourceAccount: {
+							userId
+						}
+					},
+					{
+						destinationAccount: {
+							userId
+						}
+					}
+				]
+			},
 			include: {
 				sourceAccount: {
 					include: {
@@ -21,6 +35,9 @@ export default new class TransactionService {
 
 	async createTransaction(request) {
     return await prismaClient.$transaction(async (prisma) => {
+			await accountService.withdrawAccount(request.sourceAccountId, request.amount)
+      await accountService.depositAccount(request.destinationAccountId, request.amount)
+			
       const transaction = await prisma.transaction.create({
         data: {
           sourceAccountId: request.sourceAccountId,
@@ -40,17 +57,26 @@ export default new class TransactionService {
 					}
 				}
       })
-      await accountService.withdrawAccount(request.sourceAccountId, request.amount)
-      await accountService.depositAccount(request.destinationAccountId, request.amount)
-
       return transaction
     })
 	}
 
-	async getTransactionById(id) {
+	async getTransactionById(transactionId) {
 		return prismaClient.transaction.findUnique({
 			where: {
-				id
+				id: transactionId,
+				OR: [
+					{
+						sourceAccount: {
+							userId
+						}
+					},
+					{
+						destinationAccount: {
+							userId
+						}
+					}
+				]
 			},
 			include: {
 				sourceAccount: {

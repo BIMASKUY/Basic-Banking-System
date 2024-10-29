@@ -104,7 +104,7 @@ Response Body Error :
 ```json
 {
     "success": false,
-    "messages": "Cannot read properties of null (reading 'email')",
+    "message": "Pengguna tidak ditemukan",
     "data": {}
 }
 ```

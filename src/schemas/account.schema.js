@@ -6,7 +6,6 @@ export default new class AccountSchema {
       bankName: Joi.string().required().max(255),
       bankAccountNumber: Joi.string().required().max(255),
       amount: Joi.number().required().min(10000),
-      userId: Joi.number().required().min(0)
     })
   }
 
@@ -14,7 +13,6 @@ export default new class AccountSchema {
     return Joi.object({
       bankName: this.accountSchema.extract('bankName'),
       bankAccountNumber: this.accountSchema.extract('bankAccountNumber'),
-      userId: this.accountSchema.extract('userId')
     })
   }
 

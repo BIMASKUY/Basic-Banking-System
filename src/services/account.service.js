@@ -1,51 +1,50 @@
 import { prismaClient } from "../db/prisma.js"
 
 export default new class AccountService {
-  async getAccounts() {
+  async getAccounts(userId) {
 	  return prismaClient.bankAccount.findMany({
-      include: {
-        user: true
-      }
+			where: {
+				userId
+			}
     })
   }
 
-	async createAccount(request) {
+	async createAccount(request, userId) {
 		return prismaClient.bankAccount.create({
 			data: {
 				bankName: request.bankName,
 				bankAccountNumber: request.bankAccountNumber,
-				balance: 0,
-				userId: request.userId
-			},
-			include: {
-				user: true
+				userId
 			}
 		})
 	}
 	
-	async getAccountById(id) {
+	async getAccountById(accountId, userId) {
 		return prismaClient.bankAccount.findUnique({
 			where: {
-				id
-			},
-			include: {
-				user: true
+				id: accountId,
+				userId
+			}
+		})
+	}
+	
+	async getAccountByIdForAdmin(accountId) {
+		return prismaClient.bankAccount.findUnique({
+			where: {
+				id: accountId
 			}
 		})
 	}
 
-	async withdrawAccount(id, amount) {
+	async withdrawAccount(accountId, amount) {
 		return prismaClient.bankAccount.update({
 			where: {
-				id
+				id: accountId
 			},
 			data: {
 				balance: {
 					decrement: amount
 				}
-			},
-			include: {
-				user: true
 			}
 		})
 	}
@@ -59,9 +58,6 @@ export default new class AccountService {
 				balance: {
 					increment: amount
 				}
-			},
-			include: {
-				user: true
 			}
 		})
 	}

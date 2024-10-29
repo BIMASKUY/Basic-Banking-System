@@ -11,7 +11,7 @@ export default new class TransactionController {
 
   getTransactions = async (req, res, next) => {
     try {
-      const transactions = await this.transactionService.getTransactions()
+      const transactions = await this.transactionService.getTransactions(req.userId)
     	const formattedTransactions = formatTransactions(transactions)
       res.status(200).json({
         success: true,
@@ -25,11 +25,11 @@ export default new class TransactionController {
 
   createTransaction = async (req, res, next) => {
     try {
-      const sourceAccount = await this.accountService.getAccountById(req.body.sourceAccountId)
+      const sourceAccount = await this.accountService.getAccountById(req.body.sourceAccountId, req.userId)
 			if (!sourceAccount) throw new ResponseError(404, 'Akun sumber tidak ditemukan')
 			if (sourceAccount.balance < req.body.amount) throw new ResponseError(400, 'Saldo tidak cukup')
 			
-			const destinationAccount = await this.accountService.getAccountById(req.body.destinationAccountId)
+			const destinationAccount = await this.accountService.getAccountByIdForAdmin(req.body.destinationAccountId)
 			if (!destinationAccount) throw new ResponseError(404, 'Akun tujuan tidak ditemukan')
 
       const transaction = await this.transactionService.createTransaction(req.body)

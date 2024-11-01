@@ -2,10 +2,6 @@
 
 Projek Studi Independen Backend Binar Academy
 
-## Rest API Documentation
-
-[<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://god.gw.postman.com/run-collection/34436900-23c96ab4-7553-4ce2-8df3-00f5fabdb280?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D34436900-23c96ab4-7553-4ce2-8df3-00f5fabdb280%26entityType%3Dcollection%26workspaceId%3D5063d929-7c2d-4e4d-ad2b-49d834ed6db1)
-
 ## Fitur
 
 - User

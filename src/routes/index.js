@@ -15,7 +15,7 @@ export default new class AppRouter {
     this.router.use('/users', userRoutes.getRouter())
     this.router.use('/accounts', authMiddlewares.loggedIn, accountRoutes.getRouter())
     this.router.use('/transactions', authMiddlewares.loggedIn, transactionRoutes.getRouter())
-    this.router.use('/auth', authRoutes.getRouter())
+    this.router.use('/auth', authMiddlewares.guest, authRoutes.getRouter())
   }
 
   getRouter() {

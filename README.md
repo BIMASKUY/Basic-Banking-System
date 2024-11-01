@@ -11,6 +11,7 @@ Projek Studi Independen Backend Binar Academy
 - User
 - Account
 - Transaction
+- Auth
 
 ## Teknologi yang Digunakan
 
@@ -19,6 +20,7 @@ Projek Studi Independen Backend Binar Academy
 - **PostgreSQL** - SQL database
 - **Prisma** - ORM database
 - **Joi** - Javascript validation
+- **JWT** - Stateless authentication
 
 ## Instalasi
 
@@ -57,7 +59,3 @@ Projek Studi Independen Backend Binar Academy
    ```bash
    npm run dev
    ```
-
-## ERD
-
-![alt text](image.png)

@@ -47,9 +47,9 @@ export default new class TransactionController {
 	getTransactionById = async (req, res, next) => {
 		try {
 			const transactionId = parseInt(req.params.id)
-			const transaction = await this.transactionService.getTransactionById(transactionId)
+			const transaction = await this.transactionService.getTransactionById(transactionId, req.userId)
 			if (!transaction) throw new ResponseError(404, 'Transaksi tidak ditemukan')
-				
+			
 			const formattedTransaction = formatTransaction(transaction)
 			res.status(200).json({
 				success: true,

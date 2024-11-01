@@ -61,7 +61,7 @@ export default new class TransactionService {
     })
 	}
 
-	async getTransactionById(transactionId) {
+	async getTransactionById(transactionId, userId) {
 		return prismaClient.transaction.findUnique({
 			where: {
 				id: transactionId,

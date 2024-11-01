@@ -21,4 +21,15 @@ export default new class AuthMiddleware {
 	    next(e)
 	  }
 	}
+
+	guest = (req, res, next) => {
+	  try {
+	    const { authorization } = req.headers
+	    if (authorization) throw new ResponseError(403, 'Anda sudah login')
+	    next()
+	  }
+	  catch (e) {
+	    next(e)
+	  }
+	}
 }

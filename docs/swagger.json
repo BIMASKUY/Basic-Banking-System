@@ -29,6 +29,10 @@
     {
       "name": "transaction",
       "description": "CRUD mengenai transaksi"
+    },
+    {
+      "name": "auth",
+      "description": "CRUD mengenai autentikasi user"
     }
   ],
   "paths": {
@@ -1135,6 +1139,169 @@
                     "message": {
                       "type": "string",
                       "example": "Transaksi tidak ditemukan"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Mendaftarkan pengguna",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "example": {
+                "name": "mughie",
+                "email": "mughie@gmail.com",
+                "password": "mughie123",
+                "identityType": "KTP",
+                "identityNumber": "3201010101010001",
+                "address": "Jl. Merdeka No. 123, Jakarta, Indonesia"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Berhasil membuat pengguna",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Berhasil membuat pengguna"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string",
+                          "example": "mughie@gmail.com"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "mughie"
+                        },
+                        "profile": {
+                          "type": "object",
+                          "properties": {
+                            "identityType": {
+                              "type": "string",
+                              "example": "KTP"
+                            },
+                            "identityNumber": {
+                              "type": "string",
+                              "example": "3201010101010001"
+                            },
+                            "address": {
+                              "type": "string",
+                              "example": "Jl. Merdeka No. 123, Jakarta, Indonesia"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error karena duplikasi email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Email sudah digunakan"
+                    },
+                    "data": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "get": {
+        "summary": "Login pengguna",
+        "tags": [
+          "auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Login berhasil"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string",
+                          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiaWF0IjoxNzMwMjg3MzA4LCJleHAiOjE3MzAzNzM3MDh9.b5SaUHlXfqwQIcTJvPhxo7RadBJ9rDl1lzSFXJXGW4U"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Gagal login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Email atau password salah"
                     },
                     "data": {
                       "type": "object",

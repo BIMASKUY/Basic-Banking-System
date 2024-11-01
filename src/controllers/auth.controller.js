@@ -13,10 +13,10 @@ export default new class AuthController {
   login = async (req, res, next) => {
     try {
       const user = await this.userService.getUserByEmail(req.body.email)
-      if (!user) throw new ResponseError(400, 'Email atau password salah')
+      if (!user) throw new ResponseError(401, 'Email atau password salah')
 
       const isPasswordMatch = await bcrypt.compare(req.body.password, user.password)
-      if (!isPasswordMatch) throw new ResponseError(400, 'Email atau password salah')
+      if (!isPasswordMatch) throw new ResponseError(401, 'Email atau password salah')
 
       const token = this.authService.generateToken(user)
       res.status(200).json({
@@ -36,6 +36,7 @@ export default new class AuthController {
       const existingUser = await this.userService.getUserByEmail(req.body.email)
       if (existingUser) throw new ResponseError(400, 'Email sudah terdaftar')
 
+      req.body.password = await bcrypt.hash(req.body.password, 10)
       const user = await this.userService.createUser(req.body)
       const formattedUser = formatUser(user)
       res.status(201).json({

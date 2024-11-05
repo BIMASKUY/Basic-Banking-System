@@ -20,6 +20,7 @@ model User {
   password    String   @db.VarChar(255)
   profile     Profile?
   bankAccount BankAccount[]
+  articles    Article[]
 
   @@map("users")
 }
@@ -57,4 +58,15 @@ model Transaction {
   destinationAccount      BankAccount @relation("destinationAccount", fields: [destinationAccountId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 
   @@map("transactions")
+}
+
+model Article { 
+  id          Int     @default(autoincrement())  @id
+  title       String  @db.VarChar(255)
+  content     String  @db.Text
+  imageId     String  @db.VarChar(255)           @map("image_id")
+  authorId    Int     @map("author_id")
+  author      User    @relation(fields: [authorId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+
+  @@map("articles")
 }

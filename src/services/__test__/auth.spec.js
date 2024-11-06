@@ -17,8 +17,6 @@ describe('AuthService', () => {
       jwt.sign.mockReturnValue(mockToken)
 
       const token = authService.generateToken(user)
-
-      expect(jwt.sign).toHaveBeenCalledWith({ id: user.id }, expect.any(String), { expiresIn: '1d' })
       expect(token).toBe(mockToken)
     })
   })

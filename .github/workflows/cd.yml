@@ -20,8 +20,8 @@ jobs:
           key: ${{ secrets.LAPTOP_PRIVATE_KEY }}
           port: ${{ secrets.VPS_PORT }}
           script: |
-            cd /var/www/html
-            git pull
-            npm ci
-            npm run build --if-present
-            npm test
+            cd ~/myApps/mpkmb.com
+            git pull origin main
+            git status
+            npm install --only-prod
+            pm2 restart mpkmb.com

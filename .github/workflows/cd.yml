@@ -21,6 +21,7 @@ jobs:
           key: ${{ secrets.LAPTOP_PRIVATE_KEY }}
           port: ${{ secrets.VPS_PORT }}
           script: |
+            export PATH=$PATH:/usr/local/bin:/home/selalugt/.nvm/versions/node/v20.15.0/bin
             cd ~/myApps/mpkmb.com
             git pull origin main
             git status

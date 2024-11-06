@@ -20,7 +20,7 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.LAPTOP_PRIVATE_KEY }}
           port: ${{ secrets.VPS_PORT }}
-          script: |
+          script:
             cd ~/myApps/mpkmb.com
             git pull origin main
             git status

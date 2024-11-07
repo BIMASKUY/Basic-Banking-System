@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "jest",
+    "coverage": "jest --coverage",
     "start": "node ./src/app.js",
     "dev": "nodemon ./src/app.js",
     "postinstall": "prisma generate",

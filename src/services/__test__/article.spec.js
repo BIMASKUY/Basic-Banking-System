@@ -1,5 +1,6 @@
 import articleService from '../article.service.js'
 import { prismaClient } from '../../db/prisma.js'
+import ImageKit from 'imagekit'
 
 jest.mock('../../db/prisma.js', () => ({
   prismaClient: {
@@ -12,6 +13,16 @@ jest.mock('../../db/prisma.js', () => ({
     }
   }
 }))
+
+jest.mock('imagekit', () => {
+  return jest.fn().mockImplementation(() => {
+    return {
+      getFileDetails: jest.fn().mockResolvedValue({}),
+      deleteFile: jest.fn().mockResolvedValue({}),
+      upload: jest.fn().mockResolvedValue({ fileId: 'mockFileId' })
+    }
+  })
+})
 
 describe('ArticleService', () => {
   beforeEach(() => {

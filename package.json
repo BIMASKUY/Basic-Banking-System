@@ -8,7 +8,9 @@
     "test": "jest",
     "start": "node ./src/app.js",
     "dev": "nodemon ./src/app.js",
-    "swagger": "node ./swagger.js"
+    "postinstall": "prisma generate",
+    "prisma:deploy": "npx prisma migrate deploy",
+    "gcloud:deploy": "gcloud app deploy"
   },
   "jest": {
     "transform": {

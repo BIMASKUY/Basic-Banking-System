@@ -33,7 +33,6 @@ jobs:
       
       - name: Create env.yaml file
         run: |
-          rm env.yaml
           touch env.yaml
           echo "env_variables:" >> env.yaml
           echo "  DATABASE_URL: '${{ secrets.DATABASE_URL }}'" >> env.yaml

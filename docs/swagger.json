@@ -14,7 +14,12 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000/api/v1"
+      "url": "http://localhost:3000/api/v1",
+      "description": "Local"
+    },
+    {
+      "url": "https://binar999.dt.r.appspot.com/api/v1",
+      "description": "Production"
     }
   ],
   "tags": [

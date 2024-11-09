@@ -8,6 +8,7 @@ Projek Studi Independen Backend Binar Academy
 - Account
 - Transaction
 - Auth
+- Article
 
 ## Teknologi yang Digunakan
 
@@ -17,6 +18,10 @@ Projek Studi Independen Backend Binar Academy
 - **Prisma** - ORM database
 - **Joi** - Javascript validation
 - **JWT** - Stateless authentication
+- **Multer** - File upload
+- **Morgan** - Logger
+- **Bcrypt** - Hash password
+- **Imagekit** - Cloud image
 
 ## Instalasi
 
@@ -29,7 +34,7 @@ Projek Studi Independen Backend Binar Academy
 2. Change directory to the project
 
    ```bash
-   cd Basic-Banking-System
+   cd f-bee24001186-km7-brr-basic-banking-system
    ```
 
 3. Install dependencies
@@ -38,16 +43,16 @@ Projek Studi Independen Backend Binar Academy
    npm i
    ```
 
-4. Create a copy of the `.env.example` file and name it `.env.local`. Make sure to fill the credentials correctly.
+4. Create a copy of the `.env.example` file and name it `.env`. Make sure to fill the credentials correctly.
 
    ```bash
-   cp .env.example .env.local
+   cp .env.sample .env
    ```
 
 5. Run migrations
 
    ```bash
-   npm run db:migrate
+   npx prisma migrate deploy
    ```
 
 6. Run the app

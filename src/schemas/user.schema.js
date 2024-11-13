@@ -4,7 +4,7 @@ export default new class UserSchema {
   constructor() {
     this.userSchema = Joi.object({
       name: Joi.string().required().max(255),
-      email: Joi.string().required().max(255),
+      email: Joi.string().required().max(255).email(),
       password: Joi.string().required().max(255),
       identityType: Joi.string().required().max(255),
       identityNumber: Joi.string().required().max(255),

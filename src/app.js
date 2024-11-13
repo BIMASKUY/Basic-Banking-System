@@ -1,3 +1,5 @@
+import { initSentry } from './configs/sentry.config.js'
+import * as Sentry from '@sentry/node'
 import dotenv from 'dotenv'
 import express from 'express'
 import morgan from 'morgan'
@@ -11,12 +13,16 @@ dotenv.config()
 const app = express()
 const port = process.env.PORT
 
+initSentry()
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(morgan('dev'))
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use('/api/v1', appRoutes.getRouter())
+
+Sentry.setupExpressErrorHandler(app) //make sure above errorMiddleware
 app.use(errorMiddleware)
 
 app.listen(port, () => {

@@ -30,17 +30,12 @@ jobs:
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
-
-      - name: Set up Cloud SQL instance variable
-        env:
-          CLOUD_SQL_INSTANCE: ${{ secrets.CLOUD_SQL_INSTANCE }}
-        run: |
-          echo "beta_settings:" >> app.yaml
-          echo "  cloud_sql_instances: '$CLOUD_SQL_INSTANCE'" >> app.yaml
       
       - name: Create env.yaml file
         run: |
           touch env.yaml
+          echo "beta_settings:" >> env.yaml
+          echo "  cloud_sql_instances: ${{ secrets.CLOUD_SQL_INSTANCE }}" >> env.yaml
           echo "env_variables:" >> env.yaml
           echo "  DATABASE_URL: '${{ secrets.DATABASE_URL }}'" >> env.yaml
           echo "  JWT_SECRET: '${{ secrets.JWT_SECRET }}'" >> env.yaml

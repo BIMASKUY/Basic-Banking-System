@@ -47,4 +47,18 @@ export default new class UserService {
       }
     })
   }
+  
+  async updatePasswordById(id, password) {
+    return prismaClient.user.update({
+      where: {
+        id
+      },
+      data: {
+        password
+      },
+      include: {
+        profile: true
+      }
+    })
+  }
 }

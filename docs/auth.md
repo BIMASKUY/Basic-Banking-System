@@ -69,3 +69,77 @@ Response Body Error :
     "data": {}
 }
 ```
+
+## Forgot Password Auth API
+
+Endpoint : POST /api/v1/auth/forgot-password
+
+Request Body : 
+
+```json
+{
+  "email": "mughie@gmail.com",
+}
+```
+
+Response Body Success : 
+
+```json
+{
+    "success": true,
+    "message": "Reset password telah dikirim ke email anda",
+    "data": {
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im11Z2hpZUBnbWFpbC5jb20iLCJpYXQiOjE3MzIwMTA5MzIsImV4cCI6MTczMjAxMTIzMn0.tVTL-nB7Kgx7ANCngOe1iIQqrchSPqGVrdbZTkqsx-Y"
+    }
+}
+```
+
+Response Body Error : 
+
+```json
+{
+    "success": false,
+    "message": "User tidak ditemukan",
+    "data": {}
+}
+```
+
+## Reset Password Auth API
+
+Endpoint : POST /api/v1/auth/reset-password/:token
+
+Request Body : 
+  
+```json
+{
+  "password": "mughie321"
+}
+```
+
+Response Body Success : 
+
+```json
+{
+    "success": true,
+    "message": "Berhasil mereset password",
+    "data": {
+        "email": "mughie@gmail.com",
+        "name": "mughie",
+        "profile": {
+            "identityType": "KTP",
+            "identityNumber": "1204015101617914",
+            "address": "Jl. Kangkung No. 21, Medan, Indonesia"
+        }
+    }
+}
+```
+
+Response Body Error : 
+
+```json
+{
+    "success": false,
+    "messages": "jwt expired",
+    "data": {}
+}
+```

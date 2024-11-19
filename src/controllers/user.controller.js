@@ -1,6 +1,6 @@
-import { ResponseError } from '../error/response.error.js';
-import { hash } from 'bcrypt';
-import { formatUser, formatUsers } from '../utils/user.util.js';
+import { ResponseError } from '../error/response.error.js'
+import { hash } from 'bcrypt'
+import { formatUser, formatUsers } from '../utils/user.util.js'
 import userService from '../services/user.service.js'
 
 export default new class UserController {

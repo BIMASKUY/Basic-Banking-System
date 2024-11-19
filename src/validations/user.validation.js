@@ -23,4 +23,22 @@ export default new class UserValidation {
             next(error)
         }
     }
+
+    forgotPasswordUser = (req, res, next) => {
+        try {
+            req.body = validate(this.userSchema.forgotPasswordUser(), req.body)
+            next()
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    resetPasswordUser = (req, res, next) => {
+        try {
+            req.body = validate(this.userSchema.resetPasswordUser(), req.body)
+            next()
+        } catch (error) {
+            next(error)
+        }
+    }
 }

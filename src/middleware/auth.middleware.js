@@ -1,7 +1,5 @@
-import dotenv from 'dotenv'
-import jwt from 'jsonwebtoken'
 import { ResponseError } from '../error/response.error.js'
-dotenv.config()
+import { verifyToken } from '../configs/jwt.config.js'
 
 export default new class AuthMiddleware {
 	loggedIn = (req, res, next) => {
@@ -12,8 +10,7 @@ export default new class AuthMiddleware {
 	    const token = authorization.split(' ')[1]
 	    if (!token) throw new ResponseError(401, 'Token tidak ditemukan')
 
-	    const secret = process.env.JWT_SECRET
-	    const jwtPayload = jwt.verify(token, secret)
+	    const jwtPayload = verifyToken(token)
 	    req.userId = jwtPayload.id
 	    next()
 	  }

@@ -211,7 +211,7 @@
         "tags": [
           "user"
         ],
-        "summary": "Mendapatkan pengguna berdasarkan ID",
+        "summary": "Mendapatkan pengguna berdasarkan id",
         "parameters": [
           {
             "name": "id",
@@ -1311,6 +1311,202 @@
                     "message": {
                       "type": "string",
                       "example": "Email atau password salah"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/forgot-password": {
+      "post": {
+        "summary": "Lupa kata sandi",
+        "tags": [
+          "auth"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "mughie@gmail.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Berhasil mengirim form reset password beserta token ke email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Reset password telah dikirim ke email anda"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string",
+                          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im11Z2hpZUBnbWFpbC5jb20iLCJpYXQiOjE3MzIwMTA5MzIsImV4cCI6MTczMjAxMTIzMn0.tVTL-nB7Kgx7ANCngOe1iIQqrchSPqGVrdbZTkqsx-Y"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Tidak ada pengguna dengan email tersebut",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User tidak ditemukan"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/reset-password/{token}": {
+      "post": {
+        "summary": "Reset Password",
+        "tags": [
+          "auth"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "description": "JWT token untuk reset password",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "password"
+                ],
+                "properties": {
+                  "password": {
+                    "type": "string",
+                    "example": "mughie321"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Berhasil mereset password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Berhasil mereset password"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string",
+                          "example": "mughie@gmail.com"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "mughie"
+                        },
+                        "profile": {
+                          "type": "object",
+                          "properties": {
+                            "identityType": {
+                              "type": "string",
+                              "example": "KTP"
+                            },
+                            "identityNumber": {
+                              "type": "string",
+                              "example": 1204015101617914
+                            },
+                            "address": {
+                              "type": "string",
+                              "example": "Jl. Kangkung No. 21, Medan, Indonesia"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token expired or invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "messages": {
+                      "type": "string",
+                      "example": "jwt expired"
                     },
                     "data": {
                       "type": "object",

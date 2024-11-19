@@ -22,4 +22,16 @@ export default new class UserSchema {
       password: this.userSchema.extract('password')
     })
   }
+
+  forgotPasswordUser() {
+    return Joi.object({
+      email: this.userSchema.extract('email')
+    })
+  }
+
+  resetPasswordUser() {
+    return Joi.object({
+      password: this.userSchema.extract('password')
+    })
+  }
 }

@@ -43,6 +43,10 @@ jobs:
           echo "  IMAGEKIT_PRIVATE_KEY: '${{ secrets.IMAGEKIT_PRIVATE_KEY }}'" >> env.yaml
           echo "  IMAGEKIT_URL_ENDPOINT: '${{ secrets.IMAGEKIT_URL_ENDPOINT }}'" >> env.yaml
           echo "  SENTRY_DSN: '${{ secrets.SENTRY_DSN }}'" >> env.yaml
+          echo "  NODEMAILER_USER: '${{ secrets.NODEMAILER_USER }}'" >> env.yaml
+          echo "  NODEMAILER_PASSWORD: '${{ secrets.NODEMAILER_PASSWORD }}'" >> env.yaml
+          echo "  MAILTRAP_USER: '${{ secrets.MAILTRAP_USER }}'" >> env.yaml
+          echo "  MAILTRAP_PASSWORD: '${{ secrets.MAILTRAP_PASSWORD }}'" >> env.yaml
 
       # Beware this is new line from prev code, if error try to remove it
       - name: Prisma Migrate

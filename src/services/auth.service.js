@@ -1,12 +1,17 @@
-import jwt from 'jsonwebtoken'
-import dotenv from 'dotenv'
-dotenv.config()
+import { generateToken } from '../configs/jwt.config.js'
 
 export default new class AuthService {
-	generateToken(user) {
+	getTokenByLogin(user) {
 		const payload = {
 			id: user.id
 		}
-		return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1d' })
+		return generateToken(payload, '1d')
+	}
+
+	getTokenByForgotPassword(user) {
+		const payload = {
+			email: user.email
+		}
+		return generateToken(payload, '5m')
 	}
 }

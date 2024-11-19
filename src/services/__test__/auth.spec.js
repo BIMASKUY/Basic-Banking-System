@@ -10,14 +10,27 @@ describe('AuthService', () => {
     jest.clearAllMocks()
   })
 
-  describe('generateToken', () => {
-    it('should return a token', () => {
+  describe('getTokenByLogin', () => {
+    it('should return a token with user id', () => {
       const user = { id: 1 }
-      const mockToken = 'mockToken'
+      const mockToken = '123'
       jwt.sign.mockReturnValue(mockToken)
 
-      const token = authService.generateToken(user)
+      const token = authService.getTokenByLogin(user)
       expect(token).toBe(mockToken)
+      expect(jwt.sign).toHaveBeenCalledWith({ id: user.id }, expect.any(String), { expiresIn: '1d' })
+    })
+  })
+
+  describe('getTokenByForgotPassword', () => {
+    it('should return a token with user email', () => {
+      const user = { email: 'mughie@gmail.com' }
+      const mockToken = '123'
+      jwt.sign.mockReturnValue(mockToken)
+
+      const token = authService.getTokenByForgotPassword(user)
+      expect(token).toBe(mockToken)
+      expect(jwt.sign).toHaveBeenCalledWith({ email: user.email }, expect.any(String), { expiresIn: '5m' })
     })
   })
 })

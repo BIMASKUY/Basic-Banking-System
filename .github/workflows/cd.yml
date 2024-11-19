@@ -47,10 +47,6 @@ jobs:
           echo "  NODEMAILER_PASSWORD: '${{ secrets.NODEMAILER_PASSWORD }}'" >> env.yaml
           echo "  MAILTRAP_USER: '${{ secrets.MAILTRAP_USER }}'" >> env.yaml
           echo "  MAILTRAP_PASSWORD: '${{ secrets.MAILTRAP_PASSWORD }}'" >> env.yaml
-
-      # Beware this is new line from prev code, if error try to remove it
-      - name: Prisma Migrate
-        run: npx prisma migrate deploy
         
       - name: Deploy to Google App Engine
         run: |

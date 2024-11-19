@@ -22,8 +22,12 @@ Projek Studi Independen Backend Binar Academy
 - **Morgan** - Logger
 - **Bcrypt** - Hash password
 - **Imagekit** - Cloud image
+- **Swagger** - UI Documentation
+- **Nodemailer** - Email
+- **Socket.io** - Realtime notification
+- **Sentry** - Production report
 
-## Instalasi
+## Instalasi Lokal
 
 1. Clone the repository
 
@@ -52,7 +56,7 @@ Projek Studi Independen Backend Binar Academy
 5. Run migrations
 
    ```bash
-   npx prisma migrate deploy
+   npx prisma migrate dev
    ```
 
 6. Run the app

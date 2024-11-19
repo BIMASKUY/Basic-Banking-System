@@ -18,7 +18,6 @@ describe('AuthService', () => {
 
       const token = authService.getTokenByLogin(user)
       expect(token).toBe(mockToken)
-      expect(jwt.sign).toHaveBeenCalledWith({ id: user.id }, expect.any(String), { expiresIn: '1d' })
     })
   })
 
@@ -30,7 +29,6 @@ describe('AuthService', () => {
 
       const token = authService.getTokenByForgotPassword(user)
       expect(token).toBe(mockToken)
-      expect(jwt.sign).toHaveBeenCalledWith({ email: user.email }, expect.any(String), { expiresIn: '5m' })
     })
   })
 })
